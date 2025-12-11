@@ -1,0 +1,18 @@
+# FastAPI and supporting tools
+fastapi==0.104.1
+uvicorn[standard]==0.24.0.post1
+pydantic==2.5.2
+python-multipart==0.0.6
+starlette==0.27.0
+typing-extensions==4.8.0
+
+# Database and ORM
+# SQLAlchemy: The Object-Relational Mapper
+SQLAlchemy==2.0.23
+
+# Psycopg2: PostgreSQL driver
+# Use the binary version for easier installation across platforms
+psycopg2-binary==2.9.9
+
+# For Decimal support and other utilities
+python-dotenv==1.0.0
