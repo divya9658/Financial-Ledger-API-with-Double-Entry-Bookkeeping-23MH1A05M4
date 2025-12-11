@@ -79,6 +79,8 @@ The application is built around three core database tables (`Account`, `Transact
 
 **2. Architecture Diagram (Transfer Flow):**
 
+<img width="1024" height="1024" alt="image" src="https://github.com/user-attachments/assets/16f7a3d1-4054-4237-a974-028e869a2c11" />
+
 **3. Postman Collection and Test Evidence:**
 All API endpoints are validated by the included `postman_collection.json` file. The tests demonstrate the sequence required to prove integrity:
 - **Account Creation and Deposit (Funding):** (Deposited 2 times so account 1 holds 2000/- amount)
