@@ -72,7 +72,29 @@ The application is built around three core database tables (`Account`, `Transact
 - An explicit check is performed: if current_source_balance < transfer_amount:.
 - If the check fails, an HTTPException(status_code=403, detail="Insufficient funds in source account.") is raised. This automatically triggers the transaction rollback, preventing the invalid ledger entry from ever being written and enforcing the business rule (Consistency).
 
-# 🖼️ Supporting Artifacts
-**1. Database Schema Diagram (ERD)**
+# 🖼️ Supporting Artifacts:
+**1. Database Schema Diagram (ERD):**
 
 ![WhatsApp Image 2025-12-10 at 15 00 09_dc6388e2](https://github.com/user-attachments/assets/a236cf8c-8193-404c-93be-392c8316d531)
+
+**2. Architecture Diagram (Transfer Flow):**
+
+**3. Postman Collection and Test Evidence:**
+All API endpoints are validated by the included `postman_collection.json` file. The tests demonstrate the sequence required to prove integrity:
+- **Account Creation and Deposit (Funding):** (Deposited 2 times so account 1 holds 2000/- amount)
+
+  ![WhatsApp Image 2025-12-10 at 16 01 37_a5e16225](https://github.com/user-attachments/assets/8936a1fb-0fee-4071-8009-bd84bdf9cbd0)
+  
+- **Successful Transfer (Double-Entry):** (Successfully transfered 100/- 3 times to account 2 from account 1)
+  
+  ![WhatsApp Image 2025-12-10 at 16 05 43_57eb6ddf](https://github.com/user-attachments/assets/ff9c7911-abe1-4fd5-84b5-0e3497235bcd)
+
+- **Attempted Overdraft (403 Forbidden)** (Tried to transfer more than the amount that is present in the account 1 balance)
+  
+  ![WhatsApp Image 2025-12-11 at 09 59 51_ecdf7187](https://github.com/user-attachments/assets/9b1a2fdb-7b9c-4fd4-8950-f4257aa703f6)
+
+- **Final Balance Check** (After transferring 300/- to account 2, the account 1 balance will be 1700/-)
+
+  ![WhatsApp Image 2025-12-11 at 10 07 18_28ee4d52](https://github.com/user-attachments/assets/a91ba3ed-f7c9-4926-ba5f-b7024c5db2db)
+
+  
