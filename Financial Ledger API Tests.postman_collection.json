@@ -1,0 +1,154 @@
+{
+	"info": {
+		"_postman_id": "b4719b4f-52fb-4f13-8b70-3032240732f1",
+		"name": "Financial Ledger API Tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "50501939",
+		"_collection_link": "https://divyateja9658-5956702.postman.co/workspace/Divyateja's-Workspace~e7b8733d-e2ce-4d7f-8e92-ab4996716bef/collection/50501939-b4719b4f-52fb-4f13-8b70-3032240732f1?action=share&source=collection_link&creator=50501939"
+	},
+	"item": [
+		{
+			"name": "1. Create Account 1 (Source)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"user_id\": \"user_A\",\r\n  \"account_type\": \"checking\",\r\n  \"currency\": \"USD\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/accounts/",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"accounts",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2. Create Account 2 (Destination)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"user_id\": \"user_D\",\r\n  \"account_type\": \"Savings\",\r\n  \"currency\": \"USD\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/accounts/",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"accounts",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "3. Fund Account 1 (Deposit $1000)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"source_account_id\": 0,\r\n  \"destination_account_id\": \"{{account_id_1}}\",\r\n  \"amount\": 1000.00,\r\n  \"currency\": \"USD\",\r\n  \"description\": \"second deposit for testing\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/deposits/",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"deposits",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "4. Successful Transfer ($100)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"source_account_id\": \"{{account_id_1}}\", \r\n  \"destination_account_id\": \"{{account_id_2}}\", \r\n  \"amount\": 100.00,\r\n  \"currency\": \"USD\",\r\n  \"description\": \"Test successful atomic transfer\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/transfers/",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"transfers",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "5. Attempt Overdraft (403 Forbidden)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"source_account_id\": \"{{account_id_2}}\", \r\n  \"destination_account_id\": \"{{account_id_1}}\", \r\n  \"amount\": 5000.00, \r\n  \"currency\": \"USD\",\r\n  \"description\": \"Attempted overdraft\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/transfers/",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"transfers",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "6. Check Final Balance",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	]
+}
